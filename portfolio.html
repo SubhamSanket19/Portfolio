@@ -1,355 +1,575 @@
-# AI-Proctor: Secure AI-Powered Online Examination & Intelligent Proctoring System 🎓🤖
-# 🎓 AI-Proctor: Next-Gen AI-Powered Online Examination & Remote Proctoring Platform
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-1.1.2-lightgrey.svg?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.2.0-orange.svg?style=flat-square&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.5.2-red.svg?style=flat-square&logo=opencv&logoColor=white)](https://opencv.org/)
-[![Docker](https://img.shields.io/badge/Docker-Compatible-blue.svg?style=flat-square&logo=docker&logoColor=white)](https://www.docker.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-5.7%20%2F%208.0-blue.svg?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Stripe](https://img.shields.io/badge/Stripe-Payments-purple.svg?style=flat-square&logo=stripe&logoColor=white)](https://stripe.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
-[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Flask](https://img.shields.io/badge/Flask-2.0+-lightgrey.svg?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg?style=for-the-badge&logo=tensorflow&logoColor=white)](https://www.tensorflow.org/)
-[![OpenCV](https://img.shields.io/badge/OpenCV-4.5+-red.svg?style=for-the-badge&logo=opencv&logoColor=white)](https://opencv.org/)
-[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0+-blue.svg?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
-[![Stripe](https://img.shields.io/badge/Stripe-Integration-purple.svg?style=for-the-badge&logo=stripe&logoColor=white)](https://stripe.com/)
-[![License](https://img.shields.io/badge/License-MIT-green.svg?style=for-the-badge)](LICENSE)
-**AI-Proctor** is a robust, end-to-end, high-integrity online examination platform built with Python, Flask, and JavaScript. The system is designed to conduct objective, subjective, and practical coding tests while ensuring strict academic integrity through a multi-dimensional AI-based proctoring pipeline. It features automated identity verification, visual tracking (gaze estimation, head posture, phone detection), browser-level isolation, real-time noise detection, and dynamic NLP-powered test generation.
-> **AI-Proctor** is a comprehensive, enterprise-grade online examination and automated proctoring platform. Built with Python, Flask, Computer Vision, and Deep Learning, it empowers educational institutions and organizations to deliver high-integrity assessments (Objective MCQs, Subjective Essays, and Practical Coding Exams) while enforcing automated anti-cheating controls.
----
-## 🚀 Key Capabilities & Features
-## 🌟 Key Features
-### 1. Multi-Dimensional AI Proctoring Engine 👁️
-The platform employs state-of-the-art computer vision and deep learning techniques to monitor candidates continuously:
-*   **Biometric Identity Verification:** Integrates **DeepFace** (VGG-Face weights) to perform facial recognition check-in, matching the student's face against their registered profile photo before granting access to the test.
-*   **Head Pose Estimation:** Uses 68 face landmark points and `cv2.solvePnP` to estimate head pitch, yaw, and roll. It automatically flags anomalies (e.g., *Head Up*, *Head Down*, *Looking Left*, or *Looking Right*).
-*   **Gaze & Eye Tracking:** Analyzes iris movements to detect when a student is looking away from the screen, tracking left/right/center positions and calculating blinking rates.
-*   **Object Detection (YOLOv3):** Employs YOLOv3 weights to scan the webcam feed for unauthorized objects, specifically flagging **mobile phones** and tracking the count of people in the frame (flagging *No Person* or *Multiple People*).
-*   **Microphone Audio Monitoring:** Utilizes the Web Audio API on the client side (`AudioContext` and `ScriptProcessorNode`) to measure real-time ambient noise levels (decibels) and transmit volume statistics to detect verbal collaboration.
-### 👁️ 1. Multi-Dimensional AI Proctoring Engine
-* **Biometric Facial Verification:** Integrates **DeepFace (VGG-Face)** to verify candidate identity during check-in against registered profile pictures before granting test access.
-* **3D Head Pose & Motion Analysis:** Utilizes 68-point facial landmark estimation and `solvePnP` head posture mapping to continuously track candidate head angles (pitch, yaw, roll) and flag suspicious orientation changes (*Looking Left/Right*, *Head Up/Down*).
-* **Gaze & Iris Movement Tracking:** Detects eye movement patterns and iris displacement to flag when candidates look off-screen or display abnormal blinking frequencies.
-* **YOLOv3 Object & Person Detection:** Scans live camera streams to detect unauthorized items (e.g., **mobile phones**) and monitors person count (flagging *No Person Present* or *Multiple People Detected*).
-* **Web Audio Decibel Telemetry:** Employs browser `AudioContext` and `ScriptProcessorNode` to track background noise levels in real-time and log decibel spikes indicating verbal communication.
-### 2. Browser & Window Isolation Security 🛡️
-*   **Tab Switch & Blur Tracking:** Automatically catches window focus/blur browser events and immediately notifies the system, logging tab changes and displaying immediate warnings to the student.
-*   **Lockdown Controls:** Optional integration triggers to minimize academic dishonesty during testing windows.
-### 🛡️ 2. Browser Security & Behavioral Monitoring
-* **Tab & Window Isolation:** Monitors `window.onblur` and visibility API events to detect tab switching, window resizing, or screen detachment in real-time.
-* **Incident Audit Logs:** Generates a granular, timestamped proctoring log for every examinee, accessible via the instructor dashboard.
-### 3. Comprehensive Testing Modules 📝
-*   **Objective Exams (MCQ):** Standard multiple-choice tests with optional negative marking and embedded widgets (like an on-screen calculator).
-*   **Subjective Exams:** Written test fields allowing students to answer conceptual questions.
-*   **Practical (Coding) Exams:** Features a built-in interactive compiler environment. Supports compilation and execution for **15+ programming languages** (C, C++, Java, Python, Node.js, etc.) via customized widget SDKs.
-### 📝 3. Versatile Exam Modules
-* **Objective MCQ Module:** Supports standard multiple-choice questions with embedded scientific utilities (on-screen calculator, custom timer, automatic scoring).
-* **Subjective Writing Module:** Long-form conceptual answer fields with automated text parsing and instructor grading interfaces.
-* **Practical Coding IDE:** Built-in code compiler environment supporting **15+ programming languages** (Python, C, C++, Java, JavaScript, etc.) for real-time coding assessments.
-### 4. Intelligent NLP Test Generator (Auto-Authoring) 🧠
-*   **Automatic MCQ Generator:** Automatically generates fill-in-the-blank or multiple-choice questions from textbooks or text materials using NLTK Part-of-Speech (POS) tagging and phrase chunking. It parses hypernyms and hyponyms from **WordNet** to dynamically generate distractors (wrong options).
-*   **Automatic Subjective Generator:** Scans uploaded course files, selects key academic concepts, and synthesizes questions (such as *"Explain in detail X"*, *"Define Y"*) along with matching reference answers.
-### 🧠 4. Intelligent NLP Test Generator (Auto-Authoring)
-* **Automatic MCQ Generation:** Parses uploaded course material using **NLTK POS Tagging** and **WordNet** semantical relationships (hypernyms/hyponyms) to synthesize question stems and plausible options automatically.
-* **Automatic Subjective Question Synthesizer:** Extracts core concepts from reference texts to auto-generate comprehensive evaluation questions and sample reference keys.
-### 5. Instructor & Monetization Dashboards 📊
-*   **Live Proctoring Console:** Instructors can view student metadata and real-time proctoring status logs (visual warnings, head movements, ambient decibel flags, phone detection status) chronologically.
-*   **Stripe Integration:** Built-in monetization where professors can purchase secure exam hosting credits via Stripe Payment Intent APIs.
-### 📊 5. Instructor Portal & Credit Monetization
-* **Live Telemetry Dashboard:** Allows educators to monitor exam progress, review flagged incidents, and view video/audio infraction reports.
-* **Stripe Payment Gateway:** Integrated payment pipeline allowing institutions to purchase examination credits securely.
----
-## 🛠️ Architecture & Workflow
-## 🏗️ System Architecture
-```mermaid
-flowchart TD
-    %% Define styles
-    classDef client fill:#e0f2fe,stroke:#0284c7,stroke-width:2px;
-    classDef server fill:#fef3c7,stroke:#d97706,stroke-width:2px;
-    classDef database fill:#ecfdf5,stroke:#059669,stroke-width:2px;
-    classDef ai fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px;
-    subgraph Client ["Student Client (Web Browser)"]
-        A[HTML5 WebCam Capture]:::client -->|Base64 Image Frames| C[WebRTC / Fetch API]:::client
-        B[Web Audio API Analyser]:::client -->|Decibel Levels| C
-        D[Browser Event Observers]:::client -->|Blur & Tab Switches| C
-        E[Monaco/Compiler Editor]:::client -->|Code Submissions| C
-    subgraph Client ["Client Browser (Student Interface)"]
-        A[HTML5 Video Feed] -->|Base64 Frames| C[Proctoring Pipeline Engine]
-        B[Web Audio API] -->|Decibel Telemetry| C
-        D[Browser Observers] -->|Focus / Blur Events| C
-        E[Monaco IDE] -->|Code Submissions| C
-    end
-    subgraph Backend ["Flask Application Server"]
-        C --> F[App Router & Routes]:::server
-        F --> G[DeepFace Biometrics]:::ai
-        F --> H[YOLOv3 Object Detector]:::ai
-        F --> I[Gaze & Landmark Solver]:::ai
-        F --> J[NLTK/WordNet Generator]:::ai
-    subgraph Backend ["Flask Backend Server"]
-        C --> F[App Routing & Controllers]
-        F --> G[DeepFace Biometric Engine]
-        F --> H[YOLOv3 Object Detector]
-        F --> I[Gaze & Posture Estimator]
-        F --> J[NLP Exam Generator]
-    end
-    subgraph Storage ["Database Layer"]
-        F --> K[(MySQL Database)]:::database
-        K -->|Test Metadata & Users| F
-        K -->|Activity Incident Logs| F
-    subgraph Database ["Data Store"]
-        F --> K[(MySQL Database)]
-        K -->|Exam Metadata & Users| F
-        K -->|Incident Audit Telemetry| F
-    end
-    subgraph Admin ["Professor Dashboard"]
-        L[Live Feed Monitor & Audits]:::server -->|Queries API Logs| F
-        M[Stripe Payment Gateway]:::server -->|Credit Transactions| F
-    subgraph Admin ["Instructor Console"]
-        L[Live Proctoring Dashboard] -->|Fetch Logs| F
-        M[Stripe Payment API] -->|Credits Management| F
-    end
-    %% Apply styles
-    class A,B,C,D,E client;
-    class F,L,M server;
-    class K database;
-    class G,H,I,J ai;
-```
----
-## 📋 Technical Prerequisites
-## 🛠️ Tech Stack
-Before deploying the project, ensure your environment meets the following specifications:
-*   **Python:** Version `3.8` (Recommended due to legacy Tensorflow 2.2.0 & DeepFace dependencies).
-*   **C++ Build Tools:** Needed to compile the C++ bindings for the `dlib` landmark estimator library.
-    *   *Windows:* Visual Studio Build Tools with "Desktop development with C++" workload installed.
-    *   *Linux:* `build-essential` and `cmake`.
-*   **MySQL Server:** Local or cloud instance (MySQL 5.7+ / 8.0).
-*   **SMTP Mail Server:** Email credentials (e.g., Gmail App Passwords) for sending secure registration OTPs.
-*   **Stripe API Keys:** Valid Publishable & Secret credentials for Stripe payment integration.
-| Domain | Technologies Used |
-| :--- | :--- |
-| **Backend Framework** | Python 3.8, Flask, Flask-SQLAlchemy, Jinja2 |
-| **Computer Vision & AI** | OpenCV, TensorFlow, DeepFace (VGG-Face), YOLOv3, dlib |
-| **Natural Language Processing**| NLTK, WordNet |
-| **Frontend & Compiler** | HTML5, Vanilla CSS3, JavaScript (ES6+), Monaco Editor, Bootstrap 5 |
-| **Database & Payments** | MySQL 8.0, Stripe API |
-| **DevOps & Deployment** | Docker, Docker Compose, Gunicorn |
----
-## 🚀 Installation & Setup
-## 🚀 Getting Started
-### Option 1: Docker Compose Deployment (Recommended)
-Docker containerization handles all Python dependencies, dlib C++ compilation, and MySQL server setup automatically.
-### Prerequisites
-* **Python:** `3.8+`
-* **MySQL Server:** `5.7+` or `8.0+`
-* **System Build Tools:** CMake & C++ compiler (for `dlib` compilation)
-* **Docker & Docker Compose:** *(Recommended for single-command setup)*
-1.  **Clone the Repository:**
-    ```bash
-    git clone https://github.com/YourUsername/AI-Proctor.git
-    cd AI-Proctor/AI-Proctor-master
-    ```
----
-2.  **Configure Environment Variables:**
-    Open `docker-compose.yml` and verify the environmental variables:
-    ```yaml
-    MAIL_USERNAME: "your_email@gmail.com"
-    MAIL_PASSWORD: "your_app_password"
-    # Ensure MySQL settings match your intended setup
-    ```
-### Option 1: Docker Setup (Recommended)
-3.  **Spin up Containers:**
-    ```bash
-    docker-compose up --build
-    ```
-    This builds the Flask app, downloads VGG-Face DeepFace weights, initializes the MySQL instance, and imports the database schema. Access the application on `http://localhost:5001`.
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/YourUsername/AI-Proctor.git
-   cd AI-Proctor
-   ```
-2. **Run with Docker Compose:**
-   ```bash
-   docker-compose up --build
-   ```
-   *The application will automatically build the environment, initialize the MySQL database, download ML model weights, and host the web app at `http://localhost:5001`.*
----
-### Option 2: Local Manual Setup
-### Option 2: Native Installation
-1.  **System Prerequisite Setup (Windows Developers):**
-    Install `CMake` and ensure it is added to your system `PATH`. Install Visual Studio C++ Compiler tools.
-1. **Create and activate a virtual environment:**
-   ```bash
-   python -m venv .venv
-   
-   # On Windows:
-   .venv\Scripts\activate
-   
-   # On Linux/macOS:
-   source .venv/bin/activate
-   ```
-2.  **Virtual Environment & Python Package Setup:**
-    ```bash
-    # Create and activate environment
-    python -m venv .venv
-    
-    # On Windows:
-    .venv\Scripts\activate
-    # On Unix/macOS:
-    source .venv/bin/activate
-    
-    # Upgrade build core tools
-    pip install --upgrade pip setuptools wheel
-    
-    # Install dependencies
-    pip install -r requirements.txt
-    ```
-2. **Install dependencies:**
-   ```bash
-   pip install --upgrade pip setuptools wheel
-   pip install -r requirements.txt
-   ```
-3.  **Install dlib & TensorFlow Dependencies:**
-    ```bash
-    pip install cmake dlib
-    pip install "protobuf<=3.20.1" Flask-Session==0.3.2
-    ```
-3. **Database Setup:**
-   Import the schema into your local MySQL server:
-   ```sql
-   CREATE DATABASE quizapp;
-   USE quizapp;
-   SOURCE DB/quizappstructure.sql;
-   ```
-4.  **Download AI Models & Weights:**
-    Make sure you have a `models` directory inside the project root and download the necessary weights:
-    *   **OpenCV Face Detector:** `deploy.prototxt` & `res10_300x300_ssd_iter_140000.caffemodel`
-    *   **YOLOv3 Weights:** `yolov3.weights` (Download from the official darknet project)
-    *   **Pose Landmarks Model:** `pose_model` folder (containing Tensorflow Keras model files)
-4. **Run the Application:**
-   ```bash
-   python app.py
-   ```
-   Navigate to `http://localhost:5000` in your browser.
-5.  **Database Migration:**
-    Log in to your local MySQL console and run:
-    ```sql
-    CREATE DATABASE quizapp;
-    USE quizapp;
-    SOURCE DB/quizappstructure.sql;
-    ```
-6.  **Run Development Server:**
-    ```bash
-    python app.py
-    ```
-    Open `http://localhost:5000` in your web browser.
----
-## 📂 Project Structure
-## 📁 Repository Structure
-```
-AI-Proctor-master/
-├── DB/                      # Database Schemas and SQL dumps
-│   └── quizappstructure.sql # Main MySQL schema script
-├── models/                  # Caffe, YOLOv3, & DeepFace AI model weights
-├── static/                  # Client-side assets (CSS, images, JS proctoring logic)
-│   ├── app.js               # Objective exam camera & Web Audio proctoring
-│   ├── appsubjective.js     # Subjective exam tracking logic
-│   └── apppractical.js      # Practical coding exam tracking logic
-├── templates/               # Jinja2 HTML web templates
-│   ├── index.html           # Main Student landing page
-│   ├── professor_dashboard.html # Instructor management center
-│   ├── testpractical.html   # Coding workspace IDE interface
-│   └── live_monitoring.html # Real-time telemetry monitoring
-├── app.py                   # Main Flask backend application (server routes)
-├── camera.py                # OpenCV / YOLO / Gaze AI proctoring wrapper
-├── face_detector.py         # Face SSD bounding-box localizer
-AI-Proctor/
-├── DB/                      # Database schemas & SQL initialization scripts
-├── models/                  # AI Model weights (YOLOv3, Caffe SSD, Pose models)
-├── static/                  # CSS styles, images, and client-side proctoring JS scripts
-│   ├── app.js               # Objective exam camera & Web Audio telemetry
-│   ├── appsubjective.js     # Subjective exam monitoring script
-│   └── apppractical.js      # Practical coding IDE tracking script
-├── templates/               # Responsive HTML templates (Jinja2)
-├── app.py                   # Main Flask web application server
-├── camera.py                # Computer vision proctoring engine & frame processor
-├── face_detector.py         # Face localization module
-├── face_landmarks.py        # Facial landmark extractor
-├── objective.py             # NLP Objective Quiz compiler
-├── subjective.py            # NLP Subjective exam generator
-├── requirements.txt         # Python dependencies manifest
-└── Dockerfile               # App build image instructions
-├── objective.py             # NLP-powered MCQ question generator
-├── subjective.py            # NLP-powered Subjective question synthesizer
-├── requirements.txt         # Python dependency manifest
-├── Dockerfile               # Production container configuration
-└── docker-compose.yml       # Multi-container service orchestrator
-```
----
-## 🛢️ Database Schema Overview
-## 👨‍💻 Author & Maintainer
-The database contains tables designed to manage tests, users, and audit logs:
-**Subham Sanket**
-* **GitHub:** [@subhamsanket](https://github me/subhamsanket)
-* **LinkedIn:** [Subham Sanket](https://www.linkedin.com/in/aditya-ranjan-swain/)
-| Table | Purpose | Key Attributes |
-| :--- | :--- | :--- |
-| `teachers` | Tracks instructors and assigned exam IDs | `tid`, `email`, `test_id` |
-| `questions` | Stores dynamically generated MCQ tests | `questions_uid`, `test_id`, `q`, `a`, `b`, `c`, `d`, `ans` |
-| `longqa` | Stores subjective questions | `longqa_qid`, `test_id`, `q`, `marks` |
-| `practicalqa` | Stores compiler-based programming challenges | `pracqa_qid`, `test_id`, `q`, `compiler`, `marks` |
-| `proctoring_log` | Real-time incident logs populated during exams | `email`, `voice_db`, `img_log`, `user_movements_updown`, `phone_detection`, `person_status` |
----
-## 🔧 Troubleshooting & Tips
-*   **`dlib` Installation Fails:** Ensure that `cmake` is installed and the environment path contains paths to compiler build-tools. On Windows, you must install Visual Studio with C++ features.
-*   **DeepFace Model Downloader Timeout:** If the model downloader fails due to file hosting limits, you can download `vgg_face_weights.h5` manually and place it in the target directory `~/.deepface/weights/`.
-*   **Camera Initialization Fails:** Ensure your browser has permitted camera and microphone access. HTTPS is required for webcam/microphone access in chrome unless running on `localhost` or `127.0.0.1`.
----
-## 🌐 Cloud Deployment Alternatives (Why Vercel Fails)
-### ⚠️ Why Vercel is Not Suitable for AI-Proctor
-Attempting to deploy this project on **Vercel** will fail due to several core structural limitations:
-1. **Python Version & Package Mismatch:** Vercel deploys Serverless Functions using modern Python environments (e.g., Python 3.12). AI-Proctor relies on specific older versions of packages (such as `opencv-contrib-python==4.5.2.54` and `tensorflow==2.2.0`) which do not have pre-built wheels for Python 3.12.
-2. **Missing C++ Compilers:** Installing `dlib` requires system-level compilation tools (`cmake`, GCC) to compile C++ libraries. Vercel's serverless builder does not include these tools.
-3. **Serverless Limitations:** Vercel functions have strict duration limits (10–15s for Hobby) and memory limits (1GB–3GB). Loading TensorFlow models, VGG-Face biometric modules, and running real-time frame processing will exceed these limits.
-4. **Size Caps:** Vercel limits uncompressed deployment packages to 250MB. The required ML dependencies (TensorFlow, OpenCV, DeepFace) total well over 1.5GB.
-### 🟢 Recommended Hosting Platforms
-#### 1. Render (Docker-Based Deployment)
-Render allows you to deploy containerized web applications. Since this repository has a working `Dockerfile`, Render will build the container, install all system dependencies (compilers, OpenGL libraries, OpenCV dependencies), and pre-load model weights automatically.
-*   **Step 1:** Push your code repository to GitHub/GitLab.
-*   **Step 2:** Log in to [Render](https://render.com/) and click **New > Web Service**.
-*   **Step 3:** Connect your repository.
-*   **Step 4:** In the service settings:
-    *   Set **Runtime** to `Docker`.
-    *   Set the **Start Command** (automatically read from Dockerfile).
-    *   Add your environment variables (Stripe API, SMTP credentials, MySQL connection string).
-    *   Select a plan with at least **2GB RAM** (4GB recommended for smooth deep learning execution).
-#### 2. Railway.app (Easiest Container Setup)
-Railway automatically detects Dockerfiles and deploys them seamlessly.
-*   **Step 1:** Log in to [Railway](https://railway.app/).
-*   **Step 2:** Click **New Project > Deploy from GitHub repo**.
-*   **Step 3:** Connect your repository. Railway will automatically find the `Dockerfile` and start building the container.
-*   **Step 4:** Go to **Variables** and input your environment configuration variables.
-*   **Step 5:** Link a MySQL database instance (Railway provides a built-in MySQL database template that you can spin up in one click).
-#### 3. VPS Deployments (DigitalOcean, AWS EC2, Linode)
-For full production reliability, deploy on a virtual server using `docker-compose`.
-*   **Step 1:** Spin up a Ubuntu VPS instance (Recommended: at least 2 vCPUs and 4GB RAM).
-*   **Step 2:** Install Docker and Docker Compose on the VPS:
-    ```bash
-    sudo apt update
-    sudo apt install docker.io docker-compose -y
-    ```
-*   **Step 3:** Clone your repository to the VPS:
-    ```bash
-    git clone https://github.com/YourUsername/AI-Proctor.git
-    cd AI-Proctor/AI-Proctor-master
-    ```
-*   **Step 4:** Configure your `docker-compose.yml` environment variables.
-*   **Step 5:** Start the environment in detached mode:
-    ```bash
-    sudo docker-compose up --build -d
-    ```
----
-## 📄 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for complete details.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subham Sanket — Fullstack &amp; Agentic AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eef3f8;
+    --paper-2:#ffffff;
+    --ink:#0b2545;
+    --line:#1c5d99;
+    --line-dim:#b9cfe4;
+    --orange:#f26430;
+    --muted:#54708f;
+  }
+  html[data-theme="dark"]{
+    --paper:#0a121d;
+    --paper-2:#0f1a29;
+    --ink:#e7eef7;
+    --line:#3f83c9;
+    --line-dim:#1d3350;
+    --orange:#ff8552;
+    --muted:#7f97b5;
+  }
+  *{box-sizing:border-box;}
+  body{transition:background .3s ease, color .3s ease;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line-dim) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-dim) 1px, transparent 1px);
+    background-size: 34px 34px;
+  }
+  h1,h2,h3{font-family:'IBM Plex Sans Condensed',sans-serif; margin:0; text-transform:uppercase; letter-spacing:0.3px;}
+  a{color:inherit;}
+  ::selection{background:var(--orange); color:#fff;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 28px;}
+  .crop{position:relative;}
+  .crop::before, .crop::after{
+    content:""; position:absolute; width:14px; height:14px;
+    border-top:2px solid var(--line); border-left:2px solid var(--line);
+    top:-1px; left:-1px;
+  }
+  .crop::after{
+    top:auto; left:auto; bottom:-1px; right:-1px;
+    border-top:none; border-left:none;
+    border-bottom:2px solid var(--line); border-right:2px solid var(--line);
+  }
+  nav{ position:sticky; top:0; z-index:50; background:var(--paper); border-bottom:2px solid var(--ink); opacity:0.98; }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 28px;}
+  .brand{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px; letter-spacing:0.5px;}
+  .brand .rev{color:var(--muted); font-weight:400;}
+  .navlinks{display:flex; gap:0; list-style:none; margin:0; padding:0;}
+  .navlinks a{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:0.5px;
+    color:var(--muted); text-decoration:none; font-weight:500;
+    padding:10px 16px; border-left:1px solid var(--line-dim);
+    transition:color .2s ease, background .2s ease;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--orange); background:var(--paper-2);}
+  .navcta{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:600; text-transform:uppercase;
+    padding:9px 16px; border:2px solid var(--ink); color:var(--ink); text-decoration:none;
+    transition:background .2s ease, color .2s ease;
+  }
+  .navcta:hover, .navcta:focus-visible{background:var(--ink); color:var(--paper);}
+  @media (max-width:820px){ .navlinks{display:none;} }
+  .theme-toggle{
+    width:36px; height:36px; border:2px solid var(--ink); background:transparent; color:var(--ink);
+    cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center;
+    margin-right:12px; transition:background .15s ease, color .15s ease;
+  }
+  .theme-toggle:hover{background:var(--ink); color:var(--paper);}
+  header.hero{padding:56px 0 40px;}
+  .titleblock{ border:2px solid var(--ink); background:var(--paper-2); display:grid; grid-template-columns:1.2fr 260px 220px; }
+  .titleblock-main{padding:32px 34px; border-right:2px solid var(--ink);}
+  .titleblock-photo{
+    border-right:2px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    background:repeating-linear-gradient(45deg, var(--paper), var(--paper) 8px, var(--line-dim) 8px, var(--line-dim) 9px);
+    position:relative; min-height:220px;
+  }
+  .titleblock-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .photo-placeholder{
+    text-align:center; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:0.5px; padding:20px;
+  }
+  .photo-placeholder .frame{
+    width:110px; height:110px; border:2px dashed var(--line); margin:0 auto 12px; display:flex;
+    align-items:center; justify-content:center; font-size:34px; color:var(--line); background:var(--paper-2);
+  }
+  .titleblock-meta{padding:32px 26px; display:flex; flex-direction:column; justify-content:space-between; min-width:200px;}
+  @media (max-width:900px){
+    .titleblock{grid-template-columns:1fr;}
+    .titleblock-main{border-right:none; border-bottom:2px solid var(--ink);}
+    .titleblock-photo{border-right:none; border-bottom:2px solid var(--ink); min-height:180px;}
+  }
+  .doc-label{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; display:block;}
+  h1.title{font-size:40px; font-weight:700; line-height:1.15;}
+  h1.title span{color:var(--orange);}
+  .subtitle{margin-top:16px; font-size:15.5px; color:var(--muted); max-width:56ch; font-family:'IBM Plex Sans',sans-serif; text-transform:none;}
+  .meta-row{font-family:'IBM Plex Mono',monospace; font-size:12px; display:flex; justify-content:space-between; align-items:baseline; gap:14px; padding:8px 0; border-bottom:1px dashed var(--line-dim); color:var(--muted); white-space:nowrap;}
+  .meta-row span{flex-shrink:0;}
+  .meta-row b{color:var(--ink); font-weight:600; text-align:right;}
+  .meta-row:last-child{border-bottom:none;}
+  .hero-actions{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:0.3px;
+    padding:11px 20px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:background .15s ease, color .15s ease; cursor:pointer; border:2px solid var(--ink);
+  }
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-solid:hover{background:var(--orange); border-color:var(--orange);}
+  .btn-line{background:transparent; color:var(--ink);}
+  .btn-line:hover{background:var(--ink); color:var(--paper);}
+  section{padding:64px 0;}
+  .section-head{margin-bottom:36px; display:flex; align-items:baseline; gap:16px; border-bottom:2px solid var(--ink); padding-bottom:12px;}
+  .section-num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--orange); font-weight:600;}
+  .section-head h2{font-size:24px;}
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .about-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:0; border:2px solid var(--ink);}
+  @media (max-width:800px){.about-grid{grid-template-columns:1fr;}}
+  .about-text{padding:30px; border-right:2px solid var(--ink); background:var(--paper-2);}
+  .about-text p{font-size:15px; margin-bottom:14px; text-transform:none;}
+  .spec-list{background:var(--paper-2);}
+  .spec-row{display:flex; justify-content:space-between; padding:16px 26px; border-bottom:1px dashed var(--line-dim); font-family:'IBM Plex Mono',monospace; font-size:13px;}
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row .k{color:var(--muted); text-transform:uppercase; font-size:11.5px; letter-spacing:0.5px;}
+  .spec-row .v{color:var(--ink); font-weight:600; text-align:right;}
+  .skill-groups{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0; border:2px solid var(--ink); border-bottom:none;}
+  .skill-card{background:var(--paper-2); padding:22px 24px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink);}
+  .skill-card h3{font-size:13.5px; color:var(--orange); font-family:'IBM Plex Mono',monospace; margin-bottom:14px; letter-spacing:0.5px; display:flex; align-items:center; gap:8px;}
+  .skill-card h3::before{content:"◇"; font-size:12px;}
+  .pills{display:flex; flex-wrap:wrap; gap:7px;}
+  .pill{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; padding:5px 10px;
+    background:var(--paper); border:1px solid var(--line-dim); color:var(--ink);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .pill:hover{border-color:var(--orange); background:#fff3ee;}
+  .exp-item{ display:grid; grid-template-columns:150px 1fr; border:2px solid var(--ink); background:var(--paper-2); }
+  @media (max-width:700px){ .exp-item{grid-template-columns:1fr;} }
+  .exp-date{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted); padding:26px 20px;
+    border-right:2px solid var(--ink); background:repeating-linear-gradient(180deg, var(--paper-2), var(--paper-2) 9px, var(--line-dim) 9px, var(--line-dim) 10px);
+  }
+  @media (max-width:700px){ .exp-date{border-right:none; border-bottom:2px solid var(--ink);} }
+  .exp-role{padding:26px 28px;}
+  .exp-role h3{font-size:17px;}
+  .exp-role .company{color:var(--orange); font-size:13.5px; font-weight:600; margin-top:5px; font-family:'IBM Plex Mono',monospace; text-transform:none;}
+  .exp-role ul{margin:14px 0 0; padding-left:18px; color:var(--muted); font-size:14px; text-transform:none;}
+  .exp-role li{margin-bottom:6px;}
+  .status-badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; color:var(--orange); border:1px solid var(--orange); text-transform:uppercase;
+    padding:4px 10px; margin-top:10px; letter-spacing:0.4px;
+  }
+  .project-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:0; border:2px solid var(--ink); border-left:none;}
+  .project-card{
+    background:var(--paper-2); padding:26px; border-left:2px solid var(--ink);
+    display:flex; flex-direction:column; transition:background .2s ease;
+  }
+  .project-card:hover{background:#fbfdff;}
+  .project-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;}
+  .project-card h3{font-size:16.5px;}
+  .project-index{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted);}
+  .project-card p{color:var(--muted); font-size:14px; flex-grow:1; text-transform:none;}
+  .project-tags{display:flex; flex-wrap:wrap; gap:6px; margin:16px 0;}
+  .project-tags span{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted);
+    border:1px solid var(--line-dim); padding:3px 8px;
+  }
+  .project-links{display:flex; gap:10px; margin-top:8px;}
+  .project-links a{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; text-transform:uppercase;
+    color:var(--ink); text-decoration:none; display:flex; align-items:center; gap:6px;
+    padding:8px 14px; border:1px solid var(--ink);
+    transition:background .15s ease, color .15s ease;
+  }
+  .project-links a:hover{background:var(--ink); color:var(--paper);}
+  .edu-item{display:grid; grid-template-columns:90px 1fr; border-bottom:1px dashed var(--line-dim);}
+  .edu-item:last-child{border-bottom:none;}
+  .edu-tick{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--orange); padding:18px 0; text-align:right; padding-right:20px; border-right:2px solid var(--ink); font-weight:600;
+  }
+  .edu-body{padding:18px 24px;}
+  .edu-body h3{font-size:15.5px;}
+  .edu-body .meta{color:var(--muted); font-size:12.5px; margin-top:4px; font-family:'IBM Plex Mono',monospace; text-transform:none;}
+  .contact-panel{ border:2px solid var(--ink); background:var(--paper-2); display:grid; grid-template-columns:1fr 1fr; }
+  @media (max-width:800px){.contact-panel{grid-template-columns:1fr;}}
+  .contact-left{padding:38px; border-right:2px solid var(--ink); position:relative;}
+  @media (max-width:800px){.contact-left{border-right:none; border-bottom:2px solid var(--ink);}}
+  .contact-left h2{font-size:24px; margin-bottom:12px;}
+  .contact-left p{color:var(--muted); font-size:14.5px; text-transform:none;}
+  .stamp{
+    position:absolute; bottom:30px; right:30px; border:3px solid var(--orange); color:var(--orange);
+    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:12px; text-transform:uppercase;
+    padding:8px 14px; transform:rotate(-8deg); letter-spacing:1px; opacity:0.85;
+  }
+  @media (max-width:800px){.stamp{display:none;}}
+  .contact-links{padding:38px; display:flex; flex-direction:column; gap:0;}
+  .contact-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 0; border-bottom:1px dashed var(--line-dim);
+  }
+  .contact-row:last-of-type{border-bottom:none;}
+  .contact-row .left{display:flex; align-items:center; gap:12px; font-size:14px; font-family:'IBM Plex Mono',monospace;}
+  .copy-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; background:none; border:1px solid var(--ink);
+    color:var(--ink); padding:6px 10px; cursor:pointer; transition:.15s ease; text-transform:uppercase;
+  }
+  .copy-btn:hover{background:var(--ink); color:var(--paper);}
+  .contact-row a.action{text-decoration:none; font-size:11.5px; color:var(--ink); font-family:'IBM Plex Mono',monospace; font-weight:600; border:1px solid var(--ink); padding:6px 10px; text-transform:uppercase;}
+  .contact-row a.action:hover{background:var(--ink); color:var(--paper);}
+  .contact-panel .btn{margin-top:20px; justify-content:center;}
+  footer{padding:26px 0; text-align:center; color:var(--muted); font-size:12px; font-family:'IBM Plex Mono',monospace; border-top:2px solid var(--ink);}
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--ink); color:var(--paper); font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px;
+    padding:12px 20px; opacity:0; pointer-events:none; transition:.25s ease; z-index:100; text-transform:uppercase; letter-spacing:0.3px;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">SUBHAM SANKET <span class="rev">/ rev. 2026</span></div>
+    <ul class="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+      <span id="themeIcon">☾</span>
+    </button>
+    <a class="navcta" href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="titleblock crop">
+      <div class="titleblock-main">
+        <span class="doc-label">Engineering profile / fullstack + agentic ai</span>
+        <h1 class="title">Systems that <span>reason, plan, and ship.</span></h1>
+        <p class="subtitle">Python fullstack developer and Agentic AI engineer. I design the application layer and the AI agents that run inside it — from FastAPI backends to LangGraph-driven reasoning loops.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#projects">View projects</a>
+          <a class="btn btn-line" href="#" id="resumeBtn">Download résumé</a>
+          <a class="btn btn-line" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="titleblock-photo" id="photoBox">
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <div class="frame">◇</div>
+          Photo<br>1:1 · REV A
+        </div>
+      </div>
+      <div class="titleblock-meta">
+        <div>
+          <div class="meta-row"><span>Drawn by</span><b>S. Sanket</b></div>
+          <div class="meta-row"><span>Discipline</span><b>Fullstack / AI</b></div>
+          <div class="meta-row"><span>Status</span><b>Open to roles</b></div>
+          <div class="meta-row"><span>Location</span><b>Bangalore, IN</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a B.Tech student and full stack developer currently interning at A2R Software Consultancy, building features across a Python/FastAPI backend and React frontend.</p>
+        <p>Outside work, I go deep on generative and agentic AI — building RAG pipelines, multi-agent systems, and LLM-powered tools with LangChain, LangGraph, and CrewAI. I like software that doesn't just serve pages, but makes decisions.</p>
+        <p>I care about clean architecture and shipping things that hold up in production, not just in a notebook.</p>
+      </div>
+      <div class="spec-list">
+        <div class="spec-row"><span class="k">Role target</span><span class="v">Fullstack / Agentic AI Eng.</span></div>
+        <div class="spec-row"><span class="k">Core stack</span><span class="v">Python · FastAPI · React</span></div>
+        <div class="spec-row"><span class="k">AI stack</span><span class="v">LangChain · LangGraph · CrewAI</span></div>
+        <div class="spec-row"><span class="k">Education</span><span class="v">B.Tech, CGPA 7.5</span></div>
+        <div class="spec-row"><span class="k">Status</span><span class="v">Interning · Open to hire</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">02</span><h2>Skills</h2></div>
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h3>Core Programming</h3>
+        <div class="pills">
+          <span class="pill">Python (Advanced)</span><span class="pill">C</span><span class="pill">JavaScript</span>
+          <span class="pill">OOP</span><span class="pill">DSA</span><span class="pill">SQL</span><span class="pill">Git/GitHub</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Fullstack</h3>
+        <div class="pills">
+          <span class="pill">React</span><span class="pill">HTML</span><span class="pill">FastAPI</span>
+          <span class="pill">Flask</span><span class="pill">REST APIs</span><span class="pill">JWT Auth</span><span class="pill">Node.js / Express</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Generative AI</h3>
+        <div class="pills">
+          <span class="pill">LLMs</span><span class="pill">RAG</span><span class="pill">Prompt Engineering</span>
+          <span class="pill">LangChain</span><span class="pill">LlamaIndex</span><span class="pill">FAISS / ChromaDB</span>
+          <span class="pill">OpenAI / Gemini / HF</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Agentic AI</h3>
+        <div class="pills">
+          <span class="pill">AI Agents</span><span class="pill">Multi-Agent Systems</span><span class="pill">ReAct</span>
+          <span class="pill">Tool/Function Calling</span><span class="pill">CrewAI</span><span class="pill">AutoGen</span>
+          <span class="pill">LangGraph</span><span class="pill">MCP</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Data &amp; ML</h3>
+        <div class="pills">
+          <span class="pill">NumPy</span><span class="pill">Pandas</span><span class="pill">Scikit-learn</span>
+          <span class="pill">Matplotlib</span><span class="pill">NLP</span><span class="pill">Computer Vision</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Infra &amp; Data</h3>
+        <div class="pills">
+          <span class="pill">Docker</span><span class="pill">Linux</span><span class="pill">AWS/GCP/Azure Basics</span>
+          <span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span><span class="pill">Vercel / Render</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">03</span><h2>Experience</h2></div>
+    <div class="exp-item">
+      <div class="exp-date">JUN 2026 —<br>PRESENT</div>
+      <div class="exp-role">
+        <h3>Software Development Intern</h3>
+        <div class="company">A2R Software Consultancy</div>
+        <span class="status-badge">Currently active</span>
+        <ul>
+          <li>Build full stack features using Python, FastAPI/Flask, and React across the product.</li>
+          <li>Write clean, tested code applying OOP and data structures fundamentals.</li>
+          <li>Collaborate via Git/GitHub with code reviews and iterative delivery.</li>
+          <li>Design SQL queries and integrate REST APIs with JWT-based authentication.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">04</span><h2>Projects</h2></div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-top"><h3>AI-Proctor</h3><span class="project-index">FIG. 01</span></div>
+        <p>A high-integrity online examination platform with a multi-dimensional AI proctoring pipeline that automates remote exam monitoring for institutions and corporate training programs.</p>
+        <div class="project-tags"><span>Python</span><span>Flask</span><span>JavaScript</span><span>Docker</span></div>
+        <div class="project-links">
+          <a href="https://github.com/Aditya1791/AI-Proctor" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" data-placeholder="demo">Live demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><h3>Collab-SYNC</h3><span class="project-index">FIG. 02</span></div>
+        <p>A real-time collaborative project management platform with live boards, workspaces, presence tracking, OTP-based auth, and a glassmorphic UI.</p>
+        <div class="project-tags"><span>React</span><span>TypeScript</span><span>Socket.io</span><span>Node.js</span></div>
+        <div class="project-links">
+          <a href="https://github.com/Aditya1791/Collab-SYNC" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" data-placeholder="demo">Live demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><h3>Remote Examination Portal</h3><span class="project-index">FIG. 03</span></div>
+        <p>A remote exam portal with real-time proctoring telemetry — tab-switch and focus-loss detection, clipboard blockers — plus multi-modal grading workspaces for evaluators.</p>
+        <div class="project-tags"><span>React</span><span>TypeScript</span><span>Tailwind CSS</span><span>Express.js</span></div>
+        <div class="project-links">
+          <a href="#" data-placeholder="repo">GitHub</a>
+          <a href="#" data-placeholder="demo">Live demo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">05</span><h2>Education</h2></div>
+    <div class="edu-item">
+      <div class="edu-tick">2026</div>
+      <div class="edu-body">
+        <h3>B.Tech — Trident Academy of Technology</h3>
+        <div class="meta">CGPA: 7.5</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-tick">CBSE</div>
+      <div class="edu-body">
+        <h3>Class XII — Arihant Gurukul</h3>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-tick">ICSE</div>
+      <div class="edu-body">
+        <h3>Class X — St. Xavier's High School</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="contact-panel">
+      <div class="contact-left">
+        <h2>Let's build something.</h2>
+        <p>Open to full stack and agentic AI engineering roles. Email is the fastest way to reach me — I usually reply within a day.</p>
+        <div class="stamp">Ready to ship</div>
+      </div>
+      <div class="contact-links">
+        <div class="contact-row">
+          <div class="left">sanketsubham19@gmail.com</div>
+          <button class="copy-btn" id="copyEmail">Copy</button>
+        </div>
+        <div class="contact-row">
+          <div class="left">+91 7854011156</div>
+          <a class="action" href="tel:+917854011156">Call</a>
+        </div>
+        <div class="contact-row">
+          <div class="left">LinkedIn / subhamsanket19</div>
+          <a class="action" href="#" data-placeholder="linkedin">Visit</a>
+        </div>
+        <div class="contact-row">
+          <div class="left">GitHub / Aditya1791</div>
+          <a class="action" href="https://github.com/Aditya1791" target="_blank" rel="noopener">Visit</a>
+        </div>
+        <a class="btn btn-solid" href="mailto:sanketsubham19@gmail.com?subject=Let's%20talk">Send an email →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">DRAWING NO. SS-2026-01 · SUBHAM SANKET · BANGALORE, INDIA</div>
+</footer>
+
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+  // Photo upload (click to preview your own photo; saved locally in this browser)
+  const photoBox = document.getElementById('photoBox');
+  const photoPlaceholder = document.getElementById('photoPlaceholder');
+  const savedPhoto = (function(){ try { return localStorage.getItem('profilePhoto'); } catch(e){ return null; } })();
+  if(savedPhoto){
+    photoBox.innerHTML = '<img src="' + savedPhoto + '" alt="Subham Sanket">';
+  }
+  photoBox.style.cursor = 'pointer';
+  photoBox.title = 'Click to upload your photo';
+  photoBox.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        photoBox.innerHTML = '<img src="' + reader.result + '" alt="Subham Sanket">';
+        try { localStorage.setItem('profilePhoto', reader.result); } catch(e){}
+        showToast('Photo updated');
+      };
+      reader.readAsDataURL(file);
+    });
+    input.click();
+  });
+
+  // Theme toggle
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const savedTheme = (function(){ try { return localStorage.getItem('theme'); } catch(e){ return null; } })();
+  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+
+  function applyTheme(t){
+    if(t === 'dark'){
+      root.setAttribute('data-theme','dark');
+      themeIcon.textContent = '☀';
+    } else {
+      root.removeAttribute('data-theme');
+      themeIcon.textContent = '☾';
+    }
+    currentTheme = t;
+  }
+  applyTheme(currentTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const next = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('theme', next); } catch(e){}
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  const copyBtn = document.getElementById('copyEmail');
+  const toast = document.getElementById('toast');
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText('sanketsubham19@gmail.com').then(() => {
+      showToast('Email copied to clipboard');
+    }).catch(() => {
+      showToast('Copy failed — email is sanketsubham19@gmail.com');
+    });
+  });
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  document.querySelectorAll('[data-placeholder]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('Add your ' + a.dataset.placeholder + ' link here');
+    });
+  });
+
+  document.getElementById('resumeBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    showToast('Link this button to your résumé file');
+  });
+</script>
+
+</body>
+</html>
