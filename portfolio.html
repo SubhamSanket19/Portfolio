@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subham Sanket — Fullstack &amp; Agentic AI Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#eef3f8;
+    --paper-2:#ffffff;
+    --ink:#0b2545;
+    --line:#1c5d99;
+    --line-dim:#b9cfe4;
+    --orange:#f26430;
+    --muted:#54708f;
+  }
+  html[data-theme="dark"]{
+    --paper:#0a121d;
+    --paper-2:#0f1a29;
+    --ink:#e7eef7;
+    --line:#3f83c9;
+    --line-dim:#1d3350;
+    --orange:#ff8552;
+    --muted:#7f97b5;
+  }
+  *{box-sizing:border-box;}
+  body{transition:background .3s ease, color .3s ease;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line-dim) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line-dim) 1px, transparent 1px);
+    background-size: 34px 34px;
+  }
+  h1,h2,h3{font-family:'IBM Plex Sans Condensed',sans-serif; margin:0; text-transform:uppercase; letter-spacing:0.3px;}
+  a{color:inherit;}
+  ::selection{background:var(--orange); color:#fff;}
+  .wrap{max-width:1100px; margin:0 auto; padding:0 28px;}
+  .crop{position:relative;}
+  .crop::before, .crop::after{
+    content:""; position:absolute; width:14px; height:14px;
+    border-top:2px solid var(--line); border-left:2px solid var(--line);
+    top:-1px; left:-1px;
+  }
+  .crop::after{
+    top:auto; left:auto; bottom:-1px; right:-1px;
+    border-top:none; border-left:none;
+    border-bottom:2px solid var(--line); border-right:2px solid var(--line);
+  }
+  nav{ position:sticky; top:0; z-index:50; background:var(--paper); border-bottom:2px solid var(--ink); opacity:0.98; }
+  nav .wrap{display:flex; align-items:center; justify-content:space-between; padding:14px 28px;}
+  .brand{font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:14px; letter-spacing:0.5px;}
+  .brand .rev{color:var(--muted); font-weight:400;}
+  .navlinks{display:flex; gap:0; list-style:none; margin:0; padding:0;}
+  .navlinks a{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; text-transform:uppercase; letter-spacing:0.5px;
+    color:var(--muted); text-decoration:none; font-weight:500;
+    padding:10px 16px; border-left:1px solid var(--line-dim);
+    transition:color .2s ease, background .2s ease;
+  }
+  .navlinks a:hover, .navlinks a:focus-visible{color:var(--orange); background:var(--paper-2);}
+  .navcta{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; font-weight:600; text-transform:uppercase;
+    padding:9px 16px; border:2px solid var(--ink); color:var(--ink); text-decoration:none;
+    transition:background .2s ease, color .2s ease;
+  }
+  .navcta:hover, .navcta:focus-visible{background:var(--ink); color:var(--paper);}
+  @media (max-width:820px){ .navlinks{display:none;} }
+  .theme-toggle{
+    width:36px; height:36px; border:2px solid var(--ink); background:transparent; color:var(--ink);
+    cursor:pointer; font-size:15px; display:flex; align-items:center; justify-content:center;
+    margin-right:12px; transition:background .15s ease, color .15s ease;
+  }
+  .theme-toggle:hover{background:var(--ink); color:var(--paper);}
+  header.hero{padding:56px 0 40px;}
+  .titleblock{ border:2px solid var(--ink); background:var(--paper-2); display:grid; grid-template-columns:1.2fr 260px 220px; }
+  .titleblock-main{padding:32px 34px; border-right:2px solid var(--ink);}
+  .titleblock-photo{
+    border-right:2px solid var(--ink); display:flex; align-items:center; justify-content:center;
+    background:repeating-linear-gradient(45deg, var(--paper), var(--paper) 8px, var(--line-dim) 8px, var(--line-dim) 9px);
+    position:relative; min-height:220px;
+  }
+  .titleblock-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .photo-placeholder{
+    text-align:center; font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted);
+    text-transform:uppercase; letter-spacing:0.5px; padding:20px;
+  }
+  .photo-placeholder .frame{
+    width:110px; height:110px; border:2px dashed var(--line); margin:0 auto 12px; display:flex;
+    align-items:center; justify-content:center; font-size:34px; color:var(--line); background:var(--paper-2);
+  }
+  .titleblock-meta{padding:32px 26px; display:flex; flex-direction:column; justify-content:space-between; min-width:200px;}
+  @media (max-width:900px){
+    .titleblock{grid-template-columns:1fr;}
+    .titleblock-main{border-right:none; border-bottom:2px solid var(--ink);}
+    .titleblock-photo{border-right:none; border-bottom:2px solid var(--ink); min-height:180px;}
+  }
+  .doc-label{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; display:block;}
+  h1.title{font-size:40px; font-weight:700; line-height:1.15;}
+  h1.title span{color:var(--orange);}
+  .subtitle{margin-top:16px; font-size:15.5px; color:var(--muted); max-width:56ch; font-family:'IBM Plex Sans',sans-serif; text-transform:none;}
+  .meta-row{font-family:'IBM Plex Mono',monospace; font-size:12px; display:flex; justify-content:space-between; align-items:baseline; gap:14px; padding:8px 0; border-bottom:1px dashed var(--line-dim); color:var(--muted); white-space:nowrap;}
+  .meta-row span{flex-shrink:0;}
+  .meta-row b{color:var(--ink); font-weight:600; text-align:right;}
+  .meta-row:last-child{border-bottom:none;}
+  .hero-actions{display:flex; gap:12px; margin-top:26px; flex-wrap:wrap;}
+  .btn{
+    font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px; text-transform:uppercase; letter-spacing:0.3px;
+    padding:11px 20px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:background .15s ease, color .15s ease; cursor:pointer; border:2px solid var(--ink);
+  }
+  .btn-solid{background:var(--ink); color:var(--paper);}
+  .btn-solid:hover{background:var(--orange); border-color:var(--orange);}
+  .btn-line{background:transparent; color:var(--ink);}
+  .btn-line:hover{background:var(--ink); color:var(--paper);}
+  section{padding:64px 0;}
+  .section-head{margin-bottom:36px; display:flex; align-items:baseline; gap:16px; border-bottom:2px solid var(--ink); padding-bottom:12px;}
+  .section-num{font-family:'IBM Plex Mono',monospace; font-size:13px; color:var(--orange); font-weight:600;}
+  .section-head h2{font-size:24px;}
+  .reveal{opacity:0; transform:translateY(14px); transition:opacity .5s ease, transform .5s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+  .about-grid{display:grid; grid-template-columns:1.2fr 1fr; gap:0; border:2px solid var(--ink);}
+  @media (max-width:800px){.about-grid{grid-template-columns:1fr;}}
+  .about-text{padding:30px; border-right:2px solid var(--ink); background:var(--paper-2);}
+  .about-text p{font-size:15px; margin-bottom:14px; text-transform:none;}
+  .spec-list{background:var(--paper-2);}
+  .spec-row{display:flex; justify-content:space-between; padding:16px 26px; border-bottom:1px dashed var(--line-dim); font-family:'IBM Plex Mono',monospace; font-size:13px;}
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row .k{color:var(--muted); text-transform:uppercase; font-size:11.5px; letter-spacing:0.5px;}
+  .spec-row .v{color:var(--ink); font-weight:600; text-align:right;}
+  .skill-groups{display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:0; border:2px solid var(--ink); border-bottom:none;}
+  .skill-card{background:var(--paper-2); padding:22px 24px; border-right:2px solid var(--ink); border-bottom:2px solid var(--ink);}
+  .skill-card h3{font-size:13.5px; color:var(--orange); font-family:'IBM Plex Mono',monospace; margin-bottom:14px; letter-spacing:0.5px; display:flex; align-items:center; gap:8px;}
+  .skill-card h3::before{content:"◇"; font-size:12px;}
+  .pills{display:flex; flex-wrap:wrap; gap:7px;}
+  .pill{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; padding:5px 10px;
+    background:var(--paper); border:1px solid var(--line-dim); color:var(--ink);
+    transition:border-color .15s ease, background .15s ease;
+  }
+  .pill:hover{border-color:var(--orange); background:#fff3ee;}
+  .exp-item{ display:grid; grid-template-columns:150px 1fr; border:2px solid var(--ink); background:var(--paper-2); }
+  @media (max-width:700px){ .exp-item{grid-template-columns:1fr;} }
+  .exp-date{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; color:var(--muted); padding:26px 20px;
+    border-right:2px solid var(--ink); background:repeating-linear-gradient(180deg, var(--paper-2), var(--paper-2) 9px, var(--line-dim) 9px, var(--line-dim) 10px);
+  }
+  @media (max-width:700px){ .exp-date{border-right:none; border-bottom:2px solid var(--ink);} }
+  .exp-role{padding:26px 28px;}
+  .exp-role h3{font-size:17px;}
+  .exp-role .company{color:var(--orange); font-size:13.5px; font-weight:600; margin-top:5px; font-family:'IBM Plex Mono',monospace; text-transform:none;}
+  .exp-role ul{margin:14px 0 0; padding-left:18px; color:var(--muted); font-size:14px; text-transform:none;}
+  .exp-role li{margin-bottom:6px;}
+  .status-badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; color:var(--orange); border:1px solid var(--orange); text-transform:uppercase;
+    padding:4px 10px; margin-top:10px; letter-spacing:0.4px;
+  }
+  .project-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:0; border:2px solid var(--ink); border-left:none;}
+  .project-card{
+    background:var(--paper-2); padding:26px; border-left:2px solid var(--ink);
+    display:flex; flex-direction:column; transition:background .2s ease;
+  }
+  .project-card:hover{background:#fbfdff;}
+  .project-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px;}
+  .project-card h3{font-size:16.5px;}
+  .project-index{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted);}
+  .project-card p{color:var(--muted); font-size:14px; flex-grow:1; text-transform:none;}
+  .project-tags{display:flex; flex-wrap:wrap; gap:6px; margin:16px 0;}
+  .project-tags span{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted);
+    border:1px solid var(--line-dim); padding:3px 8px;
+  }
+  .project-links{display:flex; gap:10px; margin-top:8px;}
+  .project-links a{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; font-weight:600; text-transform:uppercase;
+    color:var(--ink); text-decoration:none; display:flex; align-items:center; gap:6px;
+    padding:8px 14px; border:1px solid var(--ink);
+    transition:background .15s ease, color .15s ease;
+  }
+  .project-links a:hover{background:var(--ink); color:var(--paper);}
+  .edu-item{display:grid; grid-template-columns:90px 1fr; border-bottom:1px dashed var(--line-dim);}
+  .edu-item:last-child{border-bottom:none;}
+  .edu-tick{
+    font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--orange); padding:18px 0; text-align:right; padding-right:20px; border-right:2px solid var(--ink); font-weight:600;
+  }
+  .edu-body{padding:18px 24px;}
+  .edu-body h3{font-size:15.5px;}
+  .edu-body .meta{color:var(--muted); font-size:12.5px; margin-top:4px; font-family:'IBM Plex Mono',monospace; text-transform:none;}
+  .contact-panel{ border:2px solid var(--ink); background:var(--paper-2); display:grid; grid-template-columns:1fr 1fr; }
+  @media (max-width:800px){.contact-panel{grid-template-columns:1fr;}}
+  .contact-left{padding:38px; border-right:2px solid var(--ink); position:relative;}
+  @media (max-width:800px){.contact-left{border-right:none; border-bottom:2px solid var(--ink);}}
+  .contact-left h2{font-size:24px; margin-bottom:12px;}
+  .contact-left p{color:var(--muted); font-size:14.5px; text-transform:none;}
+  .stamp{
+    position:absolute; bottom:30px; right:30px; border:3px solid var(--orange); color:var(--orange);
+    font-family:'IBM Plex Mono',monospace; font-weight:700; font-size:12px; text-transform:uppercase;
+    padding:8px 14px; transform:rotate(-8deg); letter-spacing:1px; opacity:0.85;
+  }
+  @media (max-width:800px){.stamp{display:none;}}
+  .contact-links{padding:38px; display:flex; flex-direction:column; gap:0;}
+  .contact-row{
+    display:flex; align-items:center; justify-content:space-between; gap:12px;
+    padding:16px 0; border-bottom:1px dashed var(--line-dim);
+  }
+  .contact-row:last-of-type{border-bottom:none;}
+  .contact-row .left{display:flex; align-items:center; gap:12px; font-size:14px; font-family:'IBM Plex Mono',monospace;}
+  .copy-btn{
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px; background:none; border:1px solid var(--ink);
+    color:var(--ink); padding:6px 10px; cursor:pointer; transition:.15s ease; text-transform:uppercase;
+  }
+  .copy-btn:hover{background:var(--ink); color:var(--paper);}
+  .contact-row a.action{text-decoration:none; font-size:11.5px; color:var(--ink); font-family:'IBM Plex Mono',monospace; font-weight:600; border:1px solid var(--ink); padding:6px 10px; text-transform:uppercase;}
+  .contact-row a.action:hover{background:var(--ink); color:var(--paper);}
+  .contact-panel .btn{margin-top:20px; justify-content:center;}
+  footer{padding:26px 0; text-align:center; color:var(--muted); font-size:12px; font-family:'IBM Plex Mono',monospace; border-top:2px solid var(--ink);}
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--ink); color:var(--paper); font-family:'IBM Plex Mono',monospace; font-weight:600; font-size:13px;
+    padding:12px 20px; opacity:0; pointer-events:none; transition:.25s ease; z-index:100; text-transform:uppercase; letter-spacing:0.3px;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  @media (prefers-reduced-motion: reduce){
+    *{transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">SUBHAM SANKET <span class="rev">/ rev. 2026</span></div>
+    <ul class="navlinks">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+      <span id="themeIcon">☾</span>
+    </button>
+    <a class="navcta" href="#contact">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="titleblock crop">
+      <div class="titleblock-main">
+        <span class="doc-label">Engineering profile / fullstack + agentic ai</span>
+        <h1 class="title">Systems that <span>reason, plan, and ship.</span></h1>
+        <p class="subtitle">Python fullstack developer and Agentic AI engineer. I design the application layer and the AI agents that run inside it — from FastAPI backends to LangGraph-driven reasoning loops.</p>
+        <div class="hero-actions">
+          <a class="btn btn-solid" href="#projects">View projects</a>
+          <a class="btn btn-line" href="#" id="resumeBtn">Download résumé</a>
+          <a class="btn btn-line" href="#contact">Contact</a>
+        </div>
+      </div>
+      <div class="titleblock-photo" id="photoBox">
+        <div class="photo-placeholder" id="photoPlaceholder">
+          <div class="frame">◇</div>
+          Photo<br>1:1 · REV A
+        </div>
+      </div>
+      <div class="titleblock-meta">
+        <div>
+          <div class="meta-row"><span>Drawn by</span><b>S. Sanket</b></div>
+          <div class="meta-row"><span>Discipline</span><b>Fullstack / AI</b></div>
+          <div class="meta-row"><span>Status</span><b>Open to roles</b></div>
+          <div class="meta-row"><span>Location</span><b>Bangalore, IN</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">01</span><h2>About</h2></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a B.Tech student and full stack developer currently interning at A2R Software Consultancy, building features across a Python/FastAPI backend and React frontend.</p>
+        <p>Outside work, I go deep on generative and agentic AI — building RAG pipelines, multi-agent systems, and LLM-powered tools with LangChain, LangGraph, and CrewAI. I like software that doesn't just serve pages, but makes decisions.</p>
+        <p>I care about clean architecture and shipping things that hold up in production, not just in a notebook.</p>
+      </div>
+      <div class="spec-list">
+        <div class="spec-row"><span class="k">Role target</span><span class="v">Fullstack / Agentic AI Eng.</span></div>
+        <div class="spec-row"><span class="k">Core stack</span><span class="v">Python · FastAPI · React</span></div>
+        <div class="spec-row"><span class="k">AI stack</span><span class="v">LangChain · LangGraph · CrewAI</span></div>
+        <div class="spec-row"><span class="k">Education</span><span class="v">B.Tech, CGPA 7.5</span></div>
+        <div class="spec-row"><span class="k">Status</span><span class="v">Interning · Open to hire</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">02</span><h2>Skills</h2></div>
+    <div class="skill-groups">
+      <div class="skill-card">
+        <h3>Core Programming</h3>
+        <div class="pills">
+          <span class="pill">Python (Advanced)</span><span class="pill">C</span><span class="pill">JavaScript</span>
+          <span class="pill">OOP</span><span class="pill">DSA</span><span class="pill">SQL</span><span class="pill">Git/GitHub</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Fullstack</h3>
+        <div class="pills">
+          <span class="pill">React</span><span class="pill">HTML</span><span class="pill">FastAPI</span>
+          <span class="pill">Flask</span><span class="pill">REST APIs</span><span class="pill">JWT Auth</span><span class="pill">Node.js / Express</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Generative AI</h3>
+        <div class="pills">
+          <span class="pill">LLMs</span><span class="pill">RAG</span><span class="pill">Prompt Engineering</span>
+          <span class="pill">LangChain</span><span class="pill">LlamaIndex</span><span class="pill">FAISS / ChromaDB</span>
+          <span class="pill">OpenAI / Gemini / HF</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Agentic AI</h3>
+        <div class="pills">
+          <span class="pill">AI Agents</span><span class="pill">Multi-Agent Systems</span><span class="pill">ReAct</span>
+          <span class="pill">Tool/Function Calling</span><span class="pill">CrewAI</span><span class="pill">AutoGen</span>
+          <span class="pill">LangGraph</span><span class="pill">MCP</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Data &amp; ML</h3>
+        <div class="pills">
+          <span class="pill">NumPy</span><span class="pill">Pandas</span><span class="pill">Scikit-learn</span>
+          <span class="pill">Matplotlib</span><span class="pill">NLP</span><span class="pill">Computer Vision</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3>Infra &amp; Data</h3>
+        <div class="pills">
+          <span class="pill">Docker</span><span class="pill">Linux</span><span class="pill">AWS/GCP/Azure Basics</span>
+          <span class="pill">PostgreSQL</span><span class="pill">MongoDB</span><span class="pill">Redis</span><span class="pill">Vercel / Render</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">03</span><h2>Experience</h2></div>
+    <div class="exp-item">
+      <div class="exp-date">JUN 2026 —<br>PRESENT</div>
+      <div class="exp-role">
+        <h3>Software Development Intern</h3>
+        <div class="company">A2R Software Consultancy</div>
+        <span class="status-badge">Currently active</span>
+        <ul>
+          <li>Build full stack features using Python, FastAPI/Flask, and React across the product.</li>
+          <li>Write clean, tested code applying OOP and data structures fundamentals.</li>
+          <li>Collaborate via Git/GitHub with code reviews and iterative delivery.</li>
+          <li>Design SQL queries and integrate REST APIs with JWT-based authentication.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">04</span><h2>Projects</h2></div>
+    <div class="project-grid">
+
+      <div class="project-card">
+        <div class="project-top"><h3>AI-Proctor</h3><span class="project-index">FIG. 01</span></div>
+        <p>A high-integrity online examination platform with a multi-dimensional AI proctoring pipeline that automates remote exam monitoring for institutions and corporate training programs.</p>
+        <div class="project-tags"><span>Python</span><span>Flask</span><span>JavaScript</span><span>Docker</span></div>
+        <div class="project-links">
+          <a href="https://github.com/Aditya1791/AI-Proctor" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" data-placeholder="demo">Live demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><h3>Collab-SYNC</h3><span class="project-index">FIG. 02</span></div>
+        <p>A real-time collaborative project management platform with live boards, workspaces, presence tracking, OTP-based auth, and a glassmorphic UI.</p>
+        <div class="project-tags"><span>React</span><span>TypeScript</span><span>Socket.io</span><span>Node.js</span></div>
+        <div class="project-links">
+          <a href="https://github.com/Aditya1791/Collab-SYNC" target="_blank" rel="noopener">GitHub</a>
+          <a href="#" data-placeholder="demo">Live demo</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-top"><h3>Remote Examination Portal</h3><span class="project-index">FIG. 03</span></div>
+        <p>A remote exam portal with real-time proctoring telemetry — tab-switch and focus-loss detection, clipboard blockers — plus multi-modal grading workspaces for evaluators.</p>
+        <div class="project-tags"><span>React</span><span>TypeScript</span><span>Tailwind CSS</span><span>Express.js</span></div>
+        <div class="project-links">
+          <a href="#" data-placeholder="repo">GitHub</a>
+          <a href="#" data-placeholder="demo">Live demo</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="wrap reveal">
+    <div class="section-head"><span class="section-num">05</span><h2>Education</h2></div>
+    <div class="edu-item">
+      <div class="edu-tick">2026</div>
+      <div class="edu-body">
+        <h3>B.Tech — Trident Academy of Technology</h3>
+        <div class="meta">CGPA: 7.5</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-tick">CBSE</div>
+      <div class="edu-body">
+        <h3>Class XII — Arihant Gurukul</h3>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-tick">ICSE</div>
+      <div class="edu-body">
+        <h3>Class X — St. Xavier's High School</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="wrap reveal">
+    <div class="contact-panel">
+      <div class="contact-left">
+        <h2>Let's build something.</h2>
+        <p>Open to full stack and agentic AI engineering roles. Email is the fastest way to reach me — I usually reply within a day.</p>
+        <div class="stamp">Ready to ship</div>
+      </div>
+      <div class="contact-links">
+        <div class="contact-row">
+          <div class="left">sanketsubham19@gmail.com</div>
+          <button class="copy-btn" id="copyEmail">Copy</button>
+        </div>
+        <div class="contact-row">
+          <div class="left">+91 7854011156</div>
+          <a class="action" href="tel:+917854011156">Call</a>
+        </div>
+        <div class="contact-row">
+          <div class="left">LinkedIn / subhamsanket19</div>
+          <a class="action" href="#" data-placeholder="linkedin">Visit</a>
+        </div>
+        <div class="contact-row">
+          <div class="left">GitHub / Aditya1791</div>
+          <a class="action" href="https://github.com/Aditya1791" target="_blank" rel="noopener">Visit</a>
+        </div>
+        <a class="btn btn-solid" href="mailto:sanketsubham19@gmail.com?subject=Let's%20talk">Send an email →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">DRAWING NO. SS-2026-01 · SUBHAM SANKET · BANGALORE, INDIA</div>
+</footer>
+
+<div class="toast" id="toast">Copied to clipboard</div>
+
+<script>
+  // Photo upload (click to preview your own photo; saved locally in this browser)
+  const photoBox = document.getElementById('photoBox');
+  const photoPlaceholder = document.getElementById('photoPlaceholder');
+  const savedPhoto = (function(){ try { return localStorage.getItem('profilePhoto'); } catch(e){ return null; } })();
+  if(savedPhoto){
+    photoBox.innerHTML = '<img src="' + savedPhoto + '" alt="Subham Sanket">';
+  }
+  photoBox.style.cursor = 'pointer';
+  photoBox.title = 'Click to upload your photo';
+  photoBox.addEventListener('click', () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    input.addEventListener('change', () => {
+      const file = input.files[0];
+      if(!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        photoBox.innerHTML = '<img src="' + reader.result + '" alt="Subham Sanket">';
+        try { localStorage.setItem('profilePhoto', reader.result); } catch(e){}
+        showToast('Photo updated');
+      };
+      reader.readAsDataURL(file);
+    });
+    input.click();
+  });
+
+  // Theme toggle
+  const root = document.documentElement;
+  const themeToggle = document.getElementById('themeToggle');
+  const themeIcon = document.getElementById('themeIcon');
+  const savedTheme = (function(){ try { return localStorage.getItem('theme'); } catch(e){ return null; } })();
+  const systemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+  let currentTheme = savedTheme || (systemDark ? 'dark' : 'light');
+
+  function applyTheme(t){
+    if(t === 'dark'){
+      root.setAttribute('data-theme','dark');
+      themeIcon.textContent = '☀';
+    } else {
+      root.removeAttribute('data-theme');
+      themeIcon.textContent = '☾';
+    }
+    currentTheme = t;
+  }
+  applyTheme(currentTheme);
+
+  themeToggle.addEventListener('click', () => {
+    const next = currentTheme === 'dark' ? 'light' : 'dark';
+    applyTheme(next);
+    try { localStorage.setItem('theme', next); } catch(e){}
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        io.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => io.observe(el));
+
+  const copyBtn = document.getElementById('copyEmail');
+  const toast = document.getElementById('toast');
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText('sanketsubham19@gmail.com').then(() => {
+      showToast('Email copied to clipboard');
+    }).catch(() => {
+      showToast('Copy failed — email is sanketsubham19@gmail.com');
+    });
+  });
+
+  function showToast(msg){
+    toast.textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2200);
+  }
+
+  document.querySelectorAll('[data-placeholder]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      showToast('Add your ' + a.dataset.placeholder + ' link here');
+    });
+  });
+
+  document.getElementById('resumeBtn').addEventListener('click', (e) => {
+    e.preventDefault();
+    showToast('Link this button to your résumé file');
+  });
+</script>
+
+</body>
+</html>
