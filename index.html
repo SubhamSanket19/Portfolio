@@ -262,15 +262,12 @@
         <p class="subtitle">Python fullstack developer and Agentic AI engineer. I design the application layer and the AI agents that run inside it — from FastAPI backends to LangGraph-driven reasoning loops.</p>
         <div class="hero-actions">
           <a class="btn btn-solid" href="#projects">View projects</a>
-          <a class="btn btn-line" href="#" id="resumeBtn">Download résumé</a>
+          <a class="btn btn-line" href="Subham_Sanket_Resume.docx" download="Subham_Sanket_Resume.docx" id="resumeBtn">Download résumé</a>
           <a class="btn btn-line" href="#contact">Contact</a>
         </div>
       </div>
       <div class="titleblock-photo" id="photoBox">
-        <div class="photo-placeholder" id="photoPlaceholder">
-          <div class="frame">◇</div>
-          Photo<br>1:1 · REV A
-        </div>
+        <img src="sanket.jpg" alt="Subham Sanket">
       </div>
       <div class="titleblock-meta">
         <div>
@@ -565,9 +562,8 @@
     });
   });
 
-  document.getElementById('resumeBtn').addEventListener('click', (e) => {
-    e.preventDefault();
-    showToast('Link this button to your résumé file');
+  document.getElementById('resumeBtn').addEventListener('click', () => {
+    showToast('Downloading résumé...');
   });
 </script>
 
